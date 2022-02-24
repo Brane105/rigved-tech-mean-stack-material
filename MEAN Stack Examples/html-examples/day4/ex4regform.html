@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registration From!</h1>
+    <form action = "#" method = "post">
+        <div>
+            Name <input type = "text" name = "user">
+        </div>
+        <div>
+            Password <input type = "password" name = "pass">
+        </div>
+        <div>
+            Gender <input type = "radio" name = "gender" value = "M"> MALE
+                    <input type = "radio" name = "gender" value = "F"> FEMALE
+        </div>
+        <div>
+            Skills <input type = "checkbox" name = "skills" value = "JS">Javascript
+                    <input type = "checkbox" name = "skills" value = "HTML">HTML
+                    <input type = "checkbox" name = "skills" value = "Angular">Angular
+        </div>
+        <div>
+            Qualification
+            <select name = "qualification">
+                <option>Select</option>
+                <optgroup label = "Graduation" >
+                    <option value = "BTech">B.Tech</option>
+                    <option value = "BCOM">BCom</option>
+                    <option value = "BSC">BSc</option>
+                    <option value = "BCA">BCA</option>
+                </optgroup>
+               <optgroup label = "Post Graduation">
+                    <option value = "MCA">MCA</option>
+                    <option value = "MBA">MBA</option>
+                    <option value = "MTech">M.Tech</option>
+               </optgroup>
+            </select>
+        </div>
+        <div>
+            Address <textarea name = "address" rows = "3" cols = "35"></textarea>
+        </div>
+        <div>
+            Picture <input type = "file" name = "pic">
+        </div>
+        <div>
+            <input type = "submit" value = "Register">
+            <input type = "reset" value = "Reset">
+        </div>
+    </form>
+</body>
+</html>
