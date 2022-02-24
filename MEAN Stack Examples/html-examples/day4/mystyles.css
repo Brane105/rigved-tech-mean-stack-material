@@ -1,0 +1,12 @@
+h1 { 
+    font-family: Arial, Helvetica, sans-serif;
+    color : blue;
+}
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    color : green;
+}
+p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color : red;
+}
