@@ -1,0 +1,25 @@
+div {
+    width: 100px; height: 100px; background-color: coral; margin: 100px;
+    display: inline-block; text-align: center; border: 2px solid black;
+    line-height: 50px; color: white;
+}
+.box1 {animation: roller1 2s ;}
+
+.box2 {animation: roller2 5s;}
+
+.box3 {animation: roller3 5s; }
+
+.box4 {animation: roller1 2s infinite alternate}
+
+@keyframes roller1 {
+    0% {transform: rotate(0deg); background-color: blue;}
+    100% {transform: rotate(360deg); background-color: red}
+}
+@keyframes roller2 {
+    0% {transform: rotateX(0deg);}
+    100% {transform: rotateX(360deg);}
+}
+@keyframes roller3 {
+    0% {transform: rotateY(0deg);}
+    100% {transform: rotateY(360deg);}
+}

@@ -1,0 +1,12 @@
+div {
+    width: 100px; height: 100px; background-color: coral; margin: 100px;
+    display: inline-block; text-align: center; border: 2px solid black;
+}
+.boxMove {
+    animation: move1 5s infinite alternate;
+    position: relative;
+}
+@keyframes move1 {
+    0% {left : 100px;}
+    100% {left: 300px;}
+}
