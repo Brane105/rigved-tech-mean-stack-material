@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Loops and Condtions</h1>
+    <script type = "text/javascript">
+        var fruits = ["pineapple", "apple", "mango", "grapes", "orange"];
+        document.write("Length: "+fruits.length+"<br/>");
+        for(var i = 0; i < 3; i++) {
+            document.write("i = "+i+"<br />");
+        }
+        for(var i = 0; i < fruits.length; i++) {
+            document.write("Fruit: "+(i+1)+": "+fruits[i]+"<br />");
+            if(i == 3) {
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
