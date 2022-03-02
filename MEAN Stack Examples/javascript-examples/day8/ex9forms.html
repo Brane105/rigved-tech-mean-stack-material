@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name = "testForm" action = "ex1loops.html" method="post" onsubmit="return validateForm()">
+        <input type = "text" name = "n1" autocomplete="off">
+        <br />
+        <input type = "submit" value = "submit" >
+    </form>
+    <script type = "text/javascript">
+        function validateForm() {
+            var inputValue = document.testForm.n1.value;
+            if(inputValue.length > 3) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

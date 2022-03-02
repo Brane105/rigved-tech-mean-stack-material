@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Example on switch</h2>
+    <script type = "text/javascript">
+        var option = 3;
+        switch(option) {
+            case 1:
+            document.write("<p>Option 1</p>"); 
+            break;
+            case 2: 
+            document.write("<p>Option 2</p>");
+            break;
+            case 3: 
+            document.write("<p>Option 3</p>");
+            break;
+            default: document.write("<p>Invalid Option</p>");
+        }
+        document.write("<p>Strings in switch</p>")
+        var x = "withdraw";
+        switch(x) {
+            case "deposit": 
+            document.write("<p>Deposit option</p>");
+            break;
+            case "withdraw":
+            document.write("<p>Withdraw option</p>");
+            break;
+            case "balance":
+            document.write("<p>Balance option</p>");
+            break;
+            default: 
+            document.write("<p>Invalid option</p>");
+        }
+    </script>
+</body>
+</html>

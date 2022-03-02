@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>While and Do While Example!</h1>
+    <script type = "text/javascript">
+        var counter = 0;
+        while(counter != 10) {
+            document.write("Counter in while: "+counter+"<br />")
+            counter++;
+        }
+        document.write("<p>Outside while</p>");
+        do {
+            document.write("Counter inside do while: "+counter+"<br/>");
+            counter++;
+        } while(counter != 15);
+        document.write("<p>Outside do while</p>");
+    </script>
+</body>
+</html>

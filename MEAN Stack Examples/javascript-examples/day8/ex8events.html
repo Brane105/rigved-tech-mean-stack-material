@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 onmouseover="test(event)">Event Demo!</h2>
+    <h3 onmouseover="test(event)">This is an h3 tag</h3>
+    <button onclick="test(event)">Button1</button>
+    <script type = "text/javascript">
+        function test(e) {
+            console.log(e);
+            console.log(e.target);
+            e.target.innerHTML = 'hello world';
+        }
+    </script>
+</body>
+</html>

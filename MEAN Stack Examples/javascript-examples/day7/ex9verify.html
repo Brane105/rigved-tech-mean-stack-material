@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reversed pyramid star pattern - javascript</title>
+</head>
+<body>
+  <h2>Reversed pyramid star pattern in javascript</h2>
+  <script>
+    let a = 8;
+    let b = "";
+    for (let i = 0; i < a; i++) {
+      for (let j = 0; j < i; j++) {
+        b += " ";
+      }
+      for (let k = 0; k < (a - i) * 2 - 1; k++) {
+        b += "*";
+      }
+      b += "\n";
+    }
+    document.write(`<pre>${b}</pre>`);
+  </script>
+</body>
+</html>
