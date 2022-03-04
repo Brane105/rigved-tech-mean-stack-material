@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Inheritance with Object prototype</h2>
+    <script type = 'text/javascript'>
+        function Person (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.getName = function() {
+            return this.name;
+        }
+        Person.prototype.getAge = function() {
+            return this.age;
+        }
+        function Employee(id, name, age, salary) {
+            Person.call(this, name, age); // calls Person(name, age)
+            this.id = id;
+            this.salary = salary;
+        }
+        // inheritting person prototype
+        Employee.prototype = Object.create(Person.prototype);
+        Employee.prototype.getId = function() {
+            return this.id;
+        }
+        Employee.prototype.getSalary = function() {
+            return this.salary;
+        }
+        var e = new Employee(150, 'Alex', 35, 48000); 
+        document.write('<p>Name: '+e.getName()+', Age: '+e.getAge()+'</p>');
+        document.write('<p>Id: '+e.getId()+', Salary: '+e.getSalary()+'</p>');
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Object Prototype</h2>
+    <script type = "text/javascript">
+        // this is User object constructor to initialize name, age, phone
+        function User(name, age, phone) {
+            this.name = name;
+            this.age = age;
+            this.phone = phone;
+        }
+        // this is a getter for name i.e., getName()
+        User.prototype.getName = function() {
+            return this.name;
+        }
+        // this is a setter for name i.e., setName(arg)
+        User.prototype.setName = function(name) {
+            this.name = name;
+        }
+        // this is a getter for age i.e., getAge()
+        User.prototype.getAge = function() {
+            return this.age;
+        }
+        var user1 = new User("Alex", 35, 932999009);
+        document.write('<p>Name: '+user1.getName()+', Age: '+user1.getAge()+'</p>');
+        user1.setName('Alexandar');
+        document.write('<p>Name: '+user1.getName()+', Age: '+user1.getAge()+'</p>');
+    </script>
+</body>
+</html>
