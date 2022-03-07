@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <canvas id = "c1" width = "400" height="400" style = "border: solid 2px black"></canvas>
+    </div>
+    <script type = 'text/javascript'>
+        var ele = document.getElementById('c1');
+        // to create canvas object we need to call getContent('2d')
+        var context = ele.getContext('2d');
+        context.fillStyle = 'red';
+        context.fillRect(0, 0, 40, 40);
+        context.fillStyle = 'green';
+        context.fillRect(40, 40, 40, 40);
+        context.fillStyle = 'red';
+        context.fillRect(80, 0, 40, 40);
+        // to create arc you need to beginPath
+        context.beginPath();
+        context.arc(100, 100, 30, 0, Math.PI, true);
+        context.fill();
+        context.fillStyle = 'green';
+        context.beginPath();
+        context.arc(300, 300, 30, 0, 2 * Math.PI, true);
+        context.fill();
+        context.fillStyle = 'yellow';
+        context.beginPath();
+        context.arc(300, 300, 20, 0, Math.PI, true);
+        context.fill();
+    </script>
+</body>
+</html>
