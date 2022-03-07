@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div > img {
+            width: 100px; 
+            height: 100px;
+        }
+        div {border: 3px solid black;}
+    </style>
+</head>
+<body>
+    <h2>Gallery pics</h2>
+    <img src = '../pics/sky.jpg' width = '300' height="300" id = 'bigPic'>
+    <hr />
+    <div onclick="changePic(event)">
+        <img src = '../pics/green.jpg'><img src = '../pics/leaves.jpg'>
+        <img src = '../pics/marbles.jpg'><img src = '../pics/nature.jpg'>
+        <img src = '../pics/sea.jpg'><img src = '../pics/sky.jpg'>
+        <img src = '../pics/stones.jpg'><img src = '../pics/wind.jpg'>
+    </div>
+    <script type = 'text/javascript'>
+        function changePic(e) {
+            var ele = e.target;
+            var ele2 = document.getElementById('bigPic');
+            if(ele.tagName == 'IMG') {
+                ele2.src = ele.src;
+            }
+        }
+    </script>
+</body>
+</html>

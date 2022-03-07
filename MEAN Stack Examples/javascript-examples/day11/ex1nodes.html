@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class = "c1">Heading class c1</h1>
+    <h2 class = "c2">Heading class c2</h1>
+    <h1 class = "c1">Another Heading class c2</h1>
+    <div id = "d1">Div id d1</div>
+    <div id = "d2">Div id d2</div>
+    <div id = "d3">Div id d3</div>
+    <div class = "c1">Div class c1</div>
+    <button onclick = 'updateContent()'>Update div#d1</button>
+    <script type = "text/javascript">
+        var ele1 = document.getElementById('d1'); // gives node
+        document.write("<p>content of ele1 is : "+ele1.textContent+"</p>");
+        var ele2 = document.getElementsByClassName('c1'); // gives node list
+        document.write('<p>class c1 is used by '+ele2.length+' elements</p>')
+        for(var i = 0; i < ele2.length; i++) {
+            document.write('<p>Content of every c1 is: '+ele2[i].textContent+'</p>');
+        }
+        function updateContent() {
+            ele1.innerHTML = 'Content of d1 is updated';
+            document.getElementById('d2').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2 id = 'i1'>This is a heading</h2>
+        <button onclick = 'changeColor()'>Add color</button>
+        <script type = 'text/javascript'>
+            var counter = 0;
+            function changeColor() {
+                var ele = document.getElementById('i1');
+                //ele.style.color = 'red';
+                var colors = ['red', 'green', 'blue', 'violet'];
+                ele.style.color = colors[counter++];
+                if(counter == colors.length) {
+                    counter = 0;
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
