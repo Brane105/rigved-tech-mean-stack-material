@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Collection in Javascript</h1>
+    <script type = 'text/javascript'>
+        // creating a set
+        var s = new Set();
+        s.add("hello");
+        s.add("hi");
+        s.add("welcome");
+        s.add("hello");
+        document.write("<p>Size of set: "+s.size+"</p>");
+        for(var v of s) {
+            document.write("<p>"+v+"</p>");
+        }
+        s.clear();
+        document.write("<p>Size of set: "+s.size+"</p>");
+        // creating a map
+        var m = new Map();
+        m.set("username", "alex@1234");
+        m.set("password", "alex999");
+        m.set("password", "bruce999");
+        document.write("<p>Size of map: "+m.size+"</p>");
+        document.write("<p>Get data: "+m.get("password")+"</p>");
+        for(var k of m.keys()) {
+            document.write('<p>Key: '+k+', Value: '+m.get(k)+'</p>');
+        }
+    </script>
+</body>
+</html>

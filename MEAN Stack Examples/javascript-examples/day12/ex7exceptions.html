@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Error handling</h2>
+    <script type = "text/javascript">
+       function takeInput() {
+        var x = parseInt(prompt("Enter a number"));
+        var y = parseInt(prompt("Enter a number"));
+        var z = x * y;
+        try {
+            if(isNaN(z)) {
+                throw "You must enter only numbers to multiply"
+            }
+            document.write("<p>z: "+z+"</p>");
+        } catch(error) {
+            alert(error);
+            takeInput();
+        } finally {
+            alert('this is inside finally block')
+        }
+        document.write("Done!")
+       }
+      takeInput();
+    </script>
+</body>
+</html>

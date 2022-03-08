@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Storage Example</h1>
+    <input type = "text" name = "n1" id = "i1">
+    <input type = "button" value = "store" onclick="storeUser()"> <br />
+    <a href = "ex3storage.html">Retrieve Data</a>
+    <script type = "text/javascript">
+        function storeUser() {
+            
+            var input = document.getElementById('i1').value;
+            if(input.length < 1) {
+                alert("please enter some input");
+            } else {
+                sessionStorage.setItem('user', input);
+                localStorage.setItem('user2', input);
+            }
+        }
+    </script>
+</body>
+</html>
