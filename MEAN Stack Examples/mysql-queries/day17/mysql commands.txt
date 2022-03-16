@@ -1,0 +1,13 @@
+DDL : create, alter, truncate, drop
+DML : insert, update, delete
+DRL : select
+TCL : commit & rollback
+DCL : grant & revoke
+
+constraints:-
+primary key
+unique 
+check
+not null
+foreign key
+

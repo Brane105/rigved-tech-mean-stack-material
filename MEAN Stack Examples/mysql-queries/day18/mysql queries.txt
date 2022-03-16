@@ -1,0 +1,538 @@
+create table emp(id int primary key auto_increment, name varchar(15), dob date, salary double);
+
+insert into emp(name, dob, salary) values('Bruce', '1991-10-22', 40000.0);
+insert into emp(name, dob, salary) values('Zaheer', '1992-10-20', 50000.0);
+insert into emp(name, dob, salary) values('Sachin', '1993-10-29', 60000.0);
+insert into emp(name, dob, salary) values('Rahul', '1994-10-24', 43000.0);
+insert into emp(name, dob, salary) values('Virat', '1995-10-23', 46000.0);
+insert into emp(name, dob, salary) values('Raj', '1990-11-23', 80000.0);
+insert into emp(name, dob, salary) values('Vijay', '1992-09-20', 90000.0);
+
+-- Fetch the records whose salary is between 50k to 60k
+select * from emp where salary between 50000 and 60000;
+
+-- Fetch the records whose salary is greater than 50k
+select * from emp where salary > 50000;
+
+-- Fetch the records whose name and salary matches
+select * from emp where name = 'Bruce' and salary > 30000;
+-------------------------------------------------------------------------------
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+5 rows in set (0.19 sec)
+
+mysql> use rigved_db;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_rigved_db |
++---------------------+
+| t1                  |
+| t2                  |
++---------------------+
+2 rows in set (0.17 sec)
+
+mysql> select * from t2;
++-----+---------+------+
+| tno | tname   | tx   |
++-----+---------+------+
+| 100 | Alex    | NULL |
+| 200 | Bruce   | NULL |
+| 300 | Charles | NULL |
++-----+---------+------+
+3 rows in set (0.10 sec)
+
+mysql> truncate table t2;
+Query OK, 0 rows affected (1.40 sec)
+
+mysql> select * from t2;
+Empty set (0.00 sec)
+
+mysql> create table t3(tno int primary key auto_increment, tname varchar(15));
+Query OK, 0 rows affected (0.99 sec)
+
+mysql> insert into t3(tname) values('Alex');
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into t3(tname) values('Bruce');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from t3;
++-----+-------+
+| tno | tname |
++-----+-------+
+|   1 | Alex  |
+|   2 | Bruce |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table t3(tno int primary key auto_increment, tname varchar(15))auto_increment=500;
+ERROR 1050 (42S01): Table 't3' already exists
+mysql> create table t4(tno int primary key auto_increment, tname varchar(15))auto_increment=500;
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> insert into t4(tname) values('Charles');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into t4(tname) values('David');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from t4;
++-----+---------+
+| tno | tname   |
++-----+---------+
+| 500 | Charles |
+| 501 | David   |
++-----+---------+
+2 rows in set (0.05 sec)
+
+mysql> insert into t4(tname) values('Edward');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into t4(tname) values('Frank');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into t4(tname) values(&n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&n)' at line 1
+mysql> insert into t4(tname) values(:n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':n)' at line 1
+mysql> insert into t4(tname) values(&n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&n)' at line 1
+mysql> insert into t4(tname) values('George');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from t4;
++-----+---------+
+| tno | tname   |
++-----+---------+
+| 500 | Charles |
+| 501 | David   |
+| 502 | Edward  |
+| 503 | Frank   |
+| 504 | George  |
++-----+---------+
+5 rows in set (0.00 sec)
+
+mysql> delete from t4 where id = 501;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> delete from t4 where tno = 501;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from t4;
++-----+---------+
+| tno | tname   |
++-----+---------+
+| 500 | Charles |
+| 502 | Edward  |
+| 503 | Frank   |
+| 504 | George  |
++-----+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp(id int primary key auto_increment, name varchar(15), dob date, salary double);
+Query OK, 0 rows affected (0.80 sec)
+
+mysql> insert into emp(name, dob, salary) values('Alex', '16-03-1992', 35200.03);
+ERROR 1292 (22007): Incorrect date value: '16-03-1992' for column 'dob' at row 1
+mysql> insert into emp(name, dob, salary) values('Alex', '1992-03-15', 35200.03);
+Query OK, 1 row affected (0.09 sec)
+
+mysql>
+mysql> insert into emp(name, dob, salary) values('Bruce', '1991-10-22', 40000.0);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp(name, dob, salary) values('Zaheer', '1992-10-20', 50000.0);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into emp(name, dob, salary) values('Sachin', '1993-10-29', 60000.0);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp(name, dob, salary) values('Rahul', '1994-10-24', 43000.0);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into emp(name, dob, salary) values('Virat', '1995-10-23', 46000.0);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into emp(name, dob, salary) values('Raj', '1990-11-23', 80000.0);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into emp(name, dob, salary) values('Vijay', '1992-09-20', 90000.0);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM EMP;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from emp where salary between 50000 and 60000;
++----+--------+------------+--------+
+| id | name   | dob        | salary |
++----+--------+------------+--------+
+|  3 | Zaheer | 1992-10-20 |  50000 |
+|  4 | Sachin | 1993-10-29 |  60000 |
++----+--------+------------+--------+
+2 rows in set (0.04 sec)
+
+mysql> select * from emp where salary > 50000;
++----+--------+------------+--------+
+| id | name   | dob        | salary |
++----+--------+------------+--------+
+|  4 | Sachin | 1993-10-29 |  60000 |
+|  7 | Raj    | 1990-11-23 |  80000 |
+|  8 | Vijay  | 1992-09-20 |  90000 |
++----+--------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where name = 'Bruce' and salary > 30000;
++----+-------+------------+--------+
+| id | name  | dob        | salary |
++----+-------+------------+--------+
+|  2 | Bruce | 1991-10-22 |  40000 |
++----+-------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select count(* form emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form emp' at line 1
+mysql> select count(*) form emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp' at line 1
+mysql> select count(*) from emp;
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.08 sec)
+
+mysql> select * from emp where year(dob) = 1900;
+Empty set (0.04 sec)
+
+mysql> select * from emp where year(dob) > 1990;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp where year(dob) > 1990 and year(dob) < 1994;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select upper(name) from emp;
++-------------+
+| upper(name) |
++-------------+
+| ALEX        |
+| BRUCE       |
+| ZAHEER      |
+| SACHIN      |
+| RAHUL       |
+| VIRAT       |
+| RAJ         |
+| VIJAY       |
++-------------+
+8 rows in set (0.07 sec)
+
+mysql> select lower(name) from emp;
++-------------+
+| lower(name) |
++-------------+
+| alex        |
+| bruce       |
+| zaheer      |
+| sachin      |
+| rahul       |
+| virat       |
+| raj         |
+| vijay       |
++-------------+
+8 rows in set (0.01 sec)
+
+mysql> select dob from emp;
++------------+
+| dob        |
++------------+
+| 1992-03-15 |
+| 1991-10-22 |
+| 1992-10-20 |
+| 1993-10-29 |
+| 1994-10-24 |
+| 1995-10-23 |
+| 1990-11-23 |
+| 1992-09-20 |
++------------+
+8 rows in set (0.00 sec)
+
+mysql> select date_format(dob, '%d-%m-%y') from emp;
++------------------------------+
+| date_format(dob, '%d-%m-%y') |
++------------------------------+
+| 15-03-92                     |
+| 22-10-91                     |
+| 20-10-92                     |
+| 29-10-93                     |
+| 24-10-94                     |
+| 23-10-95                     |
+| 23-11-90                     |
+| 20-09-92                     |
++------------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select date_format(dob, '%d-%m-%Y') from emp;
++------------------------------+
+| date_format(dob, '%d-%m-%Y') |
++------------------------------+
+| 15-03-1992                   |
+| 22-10-1991                   |
+| 20-10-1992                   |
+| 29-10-1993                   |
+| 24-10-1994                   |
+| 23-10-1995                   |
+| 23-11-1990                   |
+| 20-09-1992                   |
++------------------------------+
+8 rows in set (0.00 sec)
+
+mysql> secl
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'secl' at line 1
+mysql> select upper('hello world');
++----------------------+
+| upper('hello world') |
++----------------------+
+| HELLO WORLD          |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select lower(Hello WORLD');
+    '> ;
+    '> '
+    -> ';
+    '> ^C
+mysql> select upper('hello every one');
++--------------------------+
+| upper('hello every one') |
++--------------------------+
+| HELLO EVERY ONE          |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select lower('HELLo every one');
++--------------------------+
+| lower('HELLo every one') |
++--------------------------+
+| hello every one          |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('1990-10-22', '%d/%m/%Y');
++---------------------------------------+
+| date_format('1990-10-22', '%d/%m/%Y') |
++---------------------------------------+
+| 22/10/1990                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace('jack and jue', 'j', 'b');
++-----------------------------------+
+| replace('jack and jue', 'j', 'b') |
++-----------------------------------+
+| back and bue                      |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace('jack and jue', 'j', 'bl');
++------------------------------------+
+| replace('jack and jue', 'j', 'bl') |
++------------------------------------+
+| black and blue                     |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select reverse('thanks');
++-------------------+
+| reverse('thanks') |
++-------------------+
+| sknaht            |
++-------------------+
+1 row in set (0.05 sec)
+
+mysql> select name, reverse(name) from emp;
++--------+---------------+
+| name   | reverse(name) |
++--------+---------------+
+| Alex   | xelA          |
+| Bruce  | ecurB         |
+| Zaheer | reehaZ        |
+| Sachin | nihcaS        |
+| Rahul  | luhaR         |
+| Virat  | tariV         |
+| Raj    | jaR           |
+| Vijay  | yajiV         |
++--------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> select name, replace(name, 'e', 'i') from emp;
++--------+-------------------------+
+| name   | replace(name, 'e', 'i') |
++--------+-------------------------+
+| Alex   | Alix                    |
+| Bruce  | Bruci                   |
+| Zaheer | Zahiir                  |
+| Sachin | Sachin                  |
+| Rahul  | Rahul                   |
+| Virat  | Virat                   |
+| Raj    | Raj                     |
+| Vijay  | Vijay                   |
++--------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> select count(name) from emp;
++-------------+
+| count(name) |
++-------------+
+|           8 |
++-------------+
+1 row in set (0.04 sec)
+
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|    35200.03 |
++-------------+
+1 row in set (0.06 sec)
+
+mysql> select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where year(dob) > 1992 and year(dob) < 1995;
++----+--------+------------+--------+
+| id | name   | dob        | salary |
++----+--------+------------+--------+
+|  4 | Sachin | 1993-10-29 |  60000 |
+|  5 | Rahul  | 1994-10-24 |  43000 |
++----+--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select current_date;
++--------------+
+| current_date |
++--------------+
+| 2022-03-16   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(15) | YES  |     | NULL    |                |
+| dob    | date        | YES  |     | NULL    |                |
+| salary | double      | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.18 sec)
+
+mysql> insert into emp(name, dob, salary) values('John', current_date, 42000);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.04 sec)
+
+mysql> select current_time;
++--------------+
+| current_time |
++--------------+
+| 11:02:01     |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select current_time;
++--------------+
+| current_time |
++--------------+
+| 11:02:04     |
++--------------+
+1 row in set (0.00 sec)
