@@ -536,3 +536,603 @@ mysql> select current_time;
 | 11:02:04     |
 +--------------+
 1 row in set (0.00 sec)
+
+
+
+
+
+
+
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp where id = 1 or id = 5 or id 7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7' at line 1
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp where id = 1 or id = 5 or id = 7;
++----+-------+------------+----------+
+| id | name  | dob        | salary   |
++----+-------+------------+----------+
+|  1 | Alex  | 1992-03-15 | 35200.03 |
+|  5 | Rahul | 1994-10-24 |    43000 |
+|  7 | Raj   | 1990-11-23 |    80000 |
++----+-------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where id in (1, 5, 7);
++----+-------+------------+----------+
+| id | name  | dob        | salary   |
++----+-------+------------+----------+
+|  1 | Alex  | 1992-03-15 | 35200.03 |
+|  5 | Rahul | 1994-10-24 |    43000 |
+|  7 | Raj   | 1990-11-23 |    80000 |
++----+-------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where id not in (1, 5, 7);
++----+--------+------------+--------+
+| id | name   | dob        | salary |
++----+--------+------------+--------+
+|  2 | Bruce  | 1991-10-22 |  40000 |
+|  3 | Zaheer | 1992-10-20 |  50000 |
+|  4 | Sachin | 1993-10-29 |  60000 |
+|  6 | Virat  | 1995-10-23 |  46000 |
+|  8 | Vijay  | 1992-09-20 |  90000 |
+|  9 | John   | 2022-03-16 |  42000 |
++----+--------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table dept(dept_id int primary key, dept_name varchar(15));
+Query OK, 0 rows affected (0.97 sec)
+
+mysql> insert into dept values(10, 'Account');
+Query OK, 1 row affected (0.39 sec)
+
+mysql> insert into dept values(20, 'Sales');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into dept values(30, 'Finance');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into dept values(40, 'Marketing');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int         | NO   | PRI | NULL    |       |
+| dept_name | varchar(15) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table employee(id int primary key, name varchar(15), dept_no int, salary double, foreign key(dept_no) references dept(dept_id));
+Query OK, 0 rows affected (1.22 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | YES  |     | NULL    |       |
+| dept_no | int         | YES  | MUL | NULL    |       |
+| salary  | double      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.12 sec)
+
+mysql> insert into employee values(1, 'Alex', 15, 35200);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`rigved_db`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `dept` (`dept_id`))
+mysql> insert into employee values(1, 'Alex', 10, 35200);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee values(2, 'Bruce', 10, 45200);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into employee values(3, 'Charles', 30, 35200);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee values(4, 'David', 30, 25200);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into employee values(5, 'Edward', 40, 15200);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values(6, 'Frank', 20, 15200);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into employee values(7, 'George', 30, 65200);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
++----+---------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> insert into employee values(8, 'Hari', null, 75200);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |    NULL |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> update employee set dept_no=20 where id = 8;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * form dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form dept' at line 1
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
++---------+-----------+
+4 rows in set (0.07 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_no = 20;
++----+-------+---------+--------+
+| id | name  | dept_no | salary |
++----+-------+---------+--------+
+|  6 | Frank |      20 |  15200 |
+|  8 | Hari  |      20 |  75200 |
++----+-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_no = 'Sales';
+Empty set, 1 warning (0.00 sec)
+
+mysql> select * from dept where dept_name = 'Sales';
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      20 | Sales     |
++---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select dept_id from dept;
++---------+
+| dept_id |
++---------+
+|      10 |
+|      20 |
+|      30 |
+|      40 |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id from dept where dept_name = 'Sales';
++---------+
+| dept_id |
++---------+
+|      20 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where dept_id = 20;
+ERROR 1054 (42S22): Unknown column 'dept_id' in 'where clause'
+mysql> select * from employee where dept_no = 20;
++----+-------+---------+--------+
+| id | name  | dept_no | salary |
++----+-------+---------+--------+
+|  6 | Frank |      20 |  15200 |
+|  8 | Hari  |      20 |  75200 |
++----+-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_no = (select dept_id from dept where dept_name = 'Sales');
++----+-------+---------+--------+
+| id | name  | dept_no | salary |
++----+-------+---------+--------+
+|  6 | Frank |      20 |  15200 |
+|  8 | Hari  |      20 |  75200 |
++----+-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       75200 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select salary from employee;
++--------+
+| salary |
++--------+
+|  35200 |
+|  45200 |
+|  35200 |
+|  25200 |
+|  15200 |
+|  15200 |
+|  65200 |
+|  75200 |
++--------+
+8 rows in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       75200 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee where salary < 75200;
++-------------+
+| max(salary) |
++-------------+
+|       65200 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee where salary < (select max(salary) from employee);
++-------------+
+| max(salary) |
++-------------+
+|       65200 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(dept_no) from employee;
++----------------+
+| count(dept_no) |
++----------------+
+|              8 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select dept_no, count(dept_no) from employee;
++---------+----------------+
+| dept_no | count(dept_no) |
++---------+----------------+
+|      10 |              8 |
++---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select dept_no, count(dept_no) from employee group by dept_no;
++---------+----------------+
+| dept_no | count(dept_no) |
++---------+----------------+
+|      10 |              2 |
+|      20 |              2 |
+|      30 |              3 |
+|      40 |              1 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select dept_no, count(dept_no) from employee group by dept_no;
++---------+----------------+
+| dept_no | count(dept_no) |
++---------+----------------+
+|      10 |              2 |
+|      20 |              2 |
+|      30 |              3 |
+|      40 |              1 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> insert into dept values(50, 'Operation');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * form dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form dept' at line 1
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
+|      50 | Operation |
++---------+-----------+
+5 rows in set (0.04 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
++----+---------+---------+--------+
+8 rows in set (0.05 sec)
+
+mysql> insert into employee values(9, 'Jack', null, 85000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
+|  9 | Jack    |    NULL |  85000 |
++----+---------+---------+--------+
+9 rows in set (0.00 sec)
+
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
+|      50 | Operation |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select id, name, dept_no, salary, dept_id, dept_name from employee inner join dept on employee.dept_no=dept.dept_id;
++----+---------+---------+--------+---------+-----------+
+| id | name    | dept_no | salary | dept_id | dept_name |
++----+---------+---------+--------+---------+-----------+
+|  1 | Alex    |      10 |  35200 |      10 | Account   |
+|  2 | Bruce   |      10 |  45200 |      10 | Account   |
+|  6 | Frank   |      20 |  15200 |      20 | Sales     |
+|  8 | Hari    |      20 |  75200 |      20 | Sales     |
+|  3 | Charles |      30 |  35200 |      30 | Finance   |
+|  4 | David   |      30 |  25200 |      30 | Finance   |
+|  7 | George  |      30 |  65200 |      30 | Finance   |
+|  5 | Edward  |      40 |  15200 |      40 | Marketing |
++----+---------+---------+--------+---------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.id, e.name,e.dept_no, e.salary, d.dept_id, d.dept_name from employee e inner join dept d on e.dept_no=d.dept_id;
++----+---------+---------+--------+---------+-----------+
+| id | name    | dept_no | salary | dept_id | dept_name |
++----+---------+---------+--------+---------+-----------+
+|  1 | Alex    |      10 |  35200 |      10 | Account   |
+|  2 | Bruce   |      10 |  45200 |      10 | Account   |
+|  6 | Frank   |      20 |  15200 |      20 | Sales     |
+|  8 | Hari    |      20 |  75200 |      20 | Sales     |
+|  3 | Charles |      30 |  35200 |      30 | Finance   |
+|  4 | David   |      30 |  25200 |      30 | Finance   |
+|  7 | George  |      30 |  65200 |      30 | Finance   |
+|  5 | Edward  |      40 |  15200 |      40 | Marketing |
++----+---------+---------+--------+---------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee;
++----+---------+---------+--------+
+| id | name    | dept_no | salary |
++----+---------+---------+--------+
+|  1 | Alex    |      10 |  35200 |
+|  2 | Bruce   |      10 |  45200 |
+|  3 | Charles |      30 |  35200 |
+|  4 | David   |      30 |  25200 |
+|  5 | Edward  |      40 |  15200 |
+|  6 | Frank   |      20 |  15200 |
+|  7 | George  |      30 |  65200 |
+|  8 | Hari    |      20 |  75200 |
+|  9 | Jack    |    NULL |  85000 |
++----+---------+---------+--------+
+9 rows in set (0.00 sec)
+
+mysql> select * from dept;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | Account   |
+|      20 | Sales     |
+|      30 | Finance   |
+|      40 | Marketing |
+|      50 | Operation |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select e.id, e.name,e.dept_no, e.salary, d.dept_id, d.dept_name from employee e left join dept d on e.dept_no=d.dept_id;
++----+---------+---------+--------+---------+-----------+
+| id | name    | dept_no | salary | dept_id | dept_name |
++----+---------+---------+--------+---------+-----------+
+|  1 | Alex    |      10 |  35200 |      10 | Account   |
+|  2 | Bruce   |      10 |  45200 |      10 | Account   |
+|  3 | Charles |      30 |  35200 |      30 | Finance   |
+|  4 | David   |      30 |  25200 |      30 | Finance   |
+|  5 | Edward  |      40 |  15200 |      40 | Marketing |
+|  6 | Frank   |      20 |  15200 |      20 | Sales     |
+|  7 | George  |      30 |  65200 |      30 | Finance   |
+|  8 | Hari    |      20 |  75200 |      20 | Sales     |
+|  9 | Jack    |    NULL |  85000 |    NULL | NULL      |
++----+---------+---------+--------+---------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> select e.id, e.name,e.dept_no, e.salary, d.dept_id, d.dept_name from employee e right join dept d on e.dept_no=d.dept_id;
++------+---------+---------+--------+---------+-----------+
+| id   | name    | dept_no | salary | dept_id | dept_name |
++------+---------+---------+--------+---------+-----------+
+|    1 | Alex    |      10 |  35200 |      10 | Account   |
+|    2 | Bruce   |      10 |  45200 |      10 | Account   |
+|    6 | Frank   |      20 |  15200 |      20 | Sales     |
+|    8 | Hari    |      20 |  75200 |      20 | Sales     |
+|    3 | Charles |      30 |  35200 |      30 | Finance   |
+|    4 | David   |      30 |  25200 |      30 | Finance   |
+|    7 | George  |      30 |  65200 |      30 | Finance   |
+|    5 | Edward  |      40 |  15200 |      40 | Marketing |
+| NULL | NULL    |    NULL |   NULL |      50 | Operation |
++------+---------+---------+--------+---------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> select e.id, e.name,e.dept_no, e.salary, d.dept_id, d.dept_name from employee e  join dept d on e.dept_no=d.dept_id;
++----+---------+---------+--------+---------+-----------+
+| id | name    | dept_no | salary | dept_id | dept_name |
++----+---------+---------+--------+---------+-----------+
+|  1 | Alex    |      10 |  35200 |      10 | Account   |
+|  2 | Bruce   |      10 |  45200 |      10 | Account   |
+|  6 | Frank   |      20 |  15200 |      20 | Sales     |
+|  8 | Hari    |      20 |  75200 |      20 | Sales     |
+|  3 | Charles |      30 |  35200 |      30 | Finance   |
+|  4 | David   |      30 |  25200 |      30 | Finance   |
+|  7 | George  |      30 |  65200 |      30 | Finance   |
+|  5 | Edward  |      40 |  15200 |      40 | Marketing |
++----+---------+---------+--------+---------+-----------+
+8 rows in set (0.00 sec)
