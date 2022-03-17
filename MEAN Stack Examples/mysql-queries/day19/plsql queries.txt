@@ -413,4 +413,124 @@ mysql> select * from emp$$
 +----+--------+------------+----------+
 10 rows in set (0.00 sec)
 
+
+
+
+mysql> create procedure p10getSalary(IN empId int, OUT sal double)
+    -> begin
+    -> select salary into sal from emp where id = empId
+    -> end
+    ->
+    -> $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end' at line 4
+mysql> create procedure p10getSalary(IN empId int, OUT sal double)
+    -> begin
+    -> select salary into sal from emp where id = empId;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call p10getSalary(1, @s)$$
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select @s$$
++----------+
+| @s       |
++----------+
+| 35200.03 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp$$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
+| 10 | Zaheer | 1999-02-10 |    52000 |
++----+--------+------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from emp order by salary$$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  9 | John   | 2022-03-16 |    42000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+| 10 | Zaheer | 1999-02-10 |    52000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
++----+--------+------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from emp order by salary limit 1$$
++----+------+------------+----------+
+| id | name | dob        | salary   |
++----+------+------------+----------+
+|  1 | Alex | 1992-03-15 | 35200.03 |
++----+------+------------+----------+
+1 row in set (0.02 sec)
+
+mysql> select * from emp order by salary limit 2 $$
++----+-------+------------+----------+
+| id | name  | dob        | salary   |
++----+-------+------------+----------+
+|  1 | Alex  | 1992-03-15 | 35200.03 |
+|  2 | Bruce | 1991-10-22 |    40000 |
++----+-------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> create procedure p11findNextEmp(INOUT sal double)
+    -> begin
+    -> select salary into sal from emp where salary > sal order by salary limit 1;
+    -> end
+    ->
+    -> $$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> set @s = 40000$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @s$$
++-------+
+| @s    |
++-------+
+| 40000 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> call p11findNextEmp(@s)$$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @s $$
++-------+
+| @s    |
++-------+
+| 42000 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> call p11findNextEmp(@s)$$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @s $$
++-------+
+| @s    |
++-------+
+| 43000 |
++-------+
+1 row in set (0.00 sec)
+
 mysql>
