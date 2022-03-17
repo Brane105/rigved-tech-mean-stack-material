@@ -1,0 +1,416 @@
+
+mysql> delimiter $$
+mysql> select * from emp
+    ->
+    -> $$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp;
+    ->
+    ->
+    -> $$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> delimiter ;
+mysql> select * from emp;
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp$$
+    -> ;
+ERROR 1146 (42S02): Table 'rigved_db.emp$$' doesn't exist
+mysql> delmiter #
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delmiter' at line 1
+mysql> delimiter #
+mysql> select * from emp#
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> delimiter $$
+mysql> select * from emp $$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> delimiter $$
+mysql> create procedure p1()
+    -> select * from emp;
+    -> select * from student;
+    -> $$
+Query OK, 0 rows affected (0.31 sec)
+
++--------+---------+------+
+| rollno | name    | age  |
++--------+---------+------+
+|      1 | Alex    |   22 |
+|      2 | Bruce   |   20 |
+|      3 | Charles |   21 |
++--------+---------+------+
+3 rows in set (0.31 sec)
+
+mysql> call p1()$$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.07 sec)
+
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create procedure p2()
+    -> select * from student;
+    -> $$
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call p2()$$
++--------+---------+------+
+| rollno | name    | age  |
++--------+---------+------+
+|      1 | Alex    |   22 |
+|      2 | Bruce   |   20 |
+|      3 | Charles |   21 |
++--------+---------+------+
+3 rows in set (0.06 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> call p2()$$
++--------+---------+------+
+| rollno | name    | age  |
++--------+---------+------+
+|      1 | Alex    |   22 |
+|      2 | Bruce   |   20 |
+|      3 | Charles |   21 |
++--------+---------+------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create procedure result()
+    -> select rollno, name, physics, chemistry, maths, (physics+chemistry+maths) as total from student join marks on rollno = roll_no;
+    -> $$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> call result()$$
++--------+---------+---------+-----------+-------+-------+
+| rollno | name    | physics | chemistry | maths | total |
++--------+---------+---------+-----------+-------+-------+
+|      2 | Bruce   |      80 |        85 |    88 |   253 |
+|      1 | Alex    |      87 |        88 |    88 |   263 |
+|      3 | Charles |      87 |        78 |    98 |   263 |
++--------+---------+---------+-----------+-------+-------+
+3 rows in set (0.07 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create procedure p3()
+    -> begin
+    -> declare a int;
+    -> declare b int;
+    -> declare c int;
+    -> set a = 5;
+    -> set b = a + 2;
+    -> set c = a + b;
+    -> select a, b, c;
+    -> end $$
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> p3()$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p3()' at line 1
+mysql> call p3() $$
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|    5 |    7 |   12 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p3() $$
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|    5 |    7 |   12 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select a, b, c$$
+ERROR 1054 (42S22): Unknown column 'a' in 'field list'
+mysql> call p3() $$
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|    5 |    7 |   12 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select a, b, c$$
+ERROR 1054 (42S22): Unknown column 'a' in 'field list'
+mysql> set @x = 10$$
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select @x $$
++------+
+| @x   |
++------+
+|   10 |
++------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p4()
+    -> begin
+    -> declare a int;
+    -> set a = 5;
+    -> set b = @x + a;
+    -> select a, b, @x;
+    -> end;
+    -> $$
+ERROR 1193 (HY000): Unknown system variable 'b'
+mysql> create procedure p4()
+    -> begin
+    -> declare a, b int;
+    -> set a = 5;
+    -> set b = @x + a;
+    -> select a, b, @x;
+    -> end;
+    -> $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call p4()$$
++------+------+------+
+| a    | b    | @x   |
++------+------+------+
+|    5 |   15 |   10 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p5(IN a varchar)
+    -> begin
+    -> select a;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+begin
+select a;
+end' at line 1
+mysql> create procedure p5(IN a varchar(15))
+    -> begin
+    -> select a;
+    -> end $$
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> p5('hello')$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p5('hello')' at line 1
+mysql> call p5('hello')$$
++-------+
+| a     |
++-------+
+| hello |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure p6(IN a int, IN b int)
+    -> begin
+    -> declare c int;
+    -> set c = a + b;
+    -> end $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call p6(10, 20)$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure p6(IN a int, IN b int)
+    -> begin
+    -> declare c int;
+    -> set c = a + b;
+    -> select c;
+    -> end $$
+ERROR 1304 (42000): PROCEDURE p6 already exists
+mysql> create procedure p7(IN a int, IN b int)
+    -> begin
+    -> declare c int;
+    -> set c = a + b;
+    -> select c;
+    -> end $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call p7(10, 20)$$
++------+
+| c    |
++------+
+|   30 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p7(30, 20)$$
++------+
+| c    |
++------+
+|   50 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure p8search(IN empId int)
+    -> begin
+    -> select * from emp where id = empId;
+    -> end $$
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> call p8search(1)$$
++----+------+------------+----------+
+| id | name | dob        | salary   |
++----+------+------------+----------+
+|  1 | Alex | 1992-03-15 | 35200.03 |
++----+------+------------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p8search(2)$$
++----+-------+------------+--------+
+| id | name  | dob        | salary |
++----+-------+------------+--------+
+|  2 | Bruce | 1991-10-22 |  40000 |
++----+-------+------------+--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp$$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
++----+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> desc emp$$
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(15) | YES  |     | NULL    |                |
+| dob    | date        | YES  |     | NULL    |                |
+| salary | double      | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.13 sec)
+
+mysql> create procedure p9store(IN n varchar(15), IN d date, IN s double)
+    -> begin
+    -> insert into emp(name, dob, salary) values(n, d, s);
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> call p9store('Zaheer', '1999-02-10', 52000) $$
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from emp$$
++----+--------+------------+----------+
+| id | name   | dob        | salary   |
++----+--------+------------+----------+
+|  1 | Alex   | 1992-03-15 | 35200.03 |
+|  2 | Bruce  | 1991-10-22 |    40000 |
+|  3 | Zaheer | 1992-10-20 |    50000 |
+|  4 | Sachin | 1993-10-29 |    60000 |
+|  5 | Rahul  | 1994-10-24 |    43000 |
+|  6 | Virat  | 1995-10-23 |    46000 |
+|  7 | Raj    | 1990-11-23 |    80000 |
+|  8 | Vijay  | 1992-09-20 |    90000 |
+|  9 | John   | 2022-03-16 |    42000 |
+| 10 | Zaheer | 1999-02-10 |    52000 |
++----+--------+------------+----------+
+10 rows in set (0.00 sec)
+
+mysql>
