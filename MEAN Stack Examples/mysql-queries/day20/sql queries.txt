@@ -1,0 +1,330 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+5 rows in set (0.07 sec)
+
+mysql> use rigved_db;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_rigved_db |
++---------------------+
+| dept                |
+| emp                 |
+| employee            |
+| marks               |
+| product             |
+| product_history     |
+| student             |
+| t1                  |
+| t2                  |
+| t3                  |
+| t4                  |
++---------------------+
+11 rows in set (0.05 sec)
+
+mysql> drop procedure p1;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> drop procedure p2;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop procedure p3;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> drop procedure p4;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> drop procedure p5
+    -> ;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> delimiter $$
+mysql> create procedure p1(IN a int, IN b int, OUT c int)
+    -> begin
+    -> set c = a + b;
+    -> end;
+    -> $$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> set @r = 0$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p1(20, 30, @r)$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @r$$
++------+
+| @r   |
++------+
+|   50 |
++------+
+1 row in set (0.00 sec)
+
+mysql> show tables $$
++---------------------+
+| Tables_in_rigved_db |
++---------------------+
+| dept                |
+| emp                 |
+| employee            |
+| marks               |
+| product             |
+| product_history     |
+| student             |
+| t1                  |
+| t2                  |
+| t3                  |
+| t4                  |
++---------------------+
+11 rows in set (0.07 sec)
+
+mysql> select * from emp$$
++----+--------+------------+--------+
+| id | name   | dob        | salary |
++----+--------+------------+--------+
+|  1 | Alex   | 1992-03-15 |  38000 |
+|  2 | Bruce  | 1991-10-22 |  40000 |
+|  3 | Zaheer | 1992-10-20 |  50000 |
+|  4 | Sachin | 1993-10-29 |  60000 |
+|  5 | Rahul  | 1994-10-24 |  43000 |
+|  6 | Virat  | 1995-10-23 |  46000 |
+|  7 | Raj    | 1990-11-23 |  80000 |
+|  8 | Vijay  | 1992-09-20 |  90000 |
+|  9 | John   | 2022-03-16 |  42000 |
+| 10 | Zaheer | 1999-02-10 |  52000 |
++----+--------+------------+--------+
+10 rows in set (0.06 sec)
+
+mysql> delimiter ;
+mysql> create table person (id int primary key, name varchar(15), gender varchar(5));
+Query OK, 0 rows affected (1.44 sec)
+
+mysql> insert into person values(10, 'Alex', 'Male');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into person values(20, 'Sony', 'Female');
+ERROR 1406 (22001): Data too long for column 'gender' at row 1
+mysql> drop table person;
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> create table person (id int primary key, name varchar(15), gender varchar(6));
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> insert into person values(10, 'Alex', 'Male');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into person values(20, 'Sony', 'Female');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from perso;
+ERROR 1146 (42S02): Table 'rigved_db.perso' doesn't exist
+mysql> select * from person;
++----+------+--------+
+| id | name | gender |
++----+------+--------+
+| 10 | Alex | Male   |
+| 20 | Sony | Female |
++----+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter $$
+mysql> create procedure p1(IN i int)
+    -> begin
+    -> declare n varchar(15);
+    -> declare g varchar(6);
+    -> select name, gender into n, g from person where id = i;
+    -> if g == 'Male' then
+    -> select concat('Mr.', n);
+    -> else select concat('Ms.', n);
+    -> end if;
+    -> end
+    -> $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== 'Male' then
+select concat('Mr.', n);
+else select concat('Ms.', n);
+end if;
+e' at line 6
+mysql> create procedure p1(IN i int)
+    -> begin
+    -> declare n varchar(15);
+    -> declare g varchar(6);
+    -> select name, gender into n, g from person where id = i;
+    -> if g = 'Male' then
+    -> select concat('Mr.', n);
+    -> else select concat('Ms.', n);
+    -> end if;
+    -> end
+    -> $$
+ERROR 1304 (42000): PROCEDURE p1 already exists
+mysql> drop procedure p1;
+    -> $$
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> create procedure p1(IN i int)
+    -> begin
+    -> declare n varchar(15);
+    -> declare g varchar(6);
+    -> select name, gender into n, g from person where id = i;
+    -> if g = 'Male' then
+    -> select concat('Mr.', n);
+    -> else select concat('Ms.', n);
+    -> end if;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call p1(10)$$
++------------------+
+| concat('Mr.', n) |
++------------------+
+| Mr.Alex          |
++------------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call p1(20)$$
++------------------+
+| concat('Ms.', n) |
++------------------+
+| Ms.Sony          |
++------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from person$$
++----+------+--------+
+| id | name | gender |
++----+------+--------+
+| 10 | Alex | Male   |
+| 20 | Sony | Female |
++----+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select current_time$$
++--------------+
+| current_time |
++--------------+
+| 10:01:56     |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select current_datetime$$
+ERROR 1054 (42S22): Unknown column 'current_datetime' in 'field list'
+mysql> select timestamp$$
+ERROR 1054 (42S22): Unknown column 'timestamp' in 'field list'
+mysql> select time_stamp $$
+ERROR 1054 (42S22): Unknown column 'time_stamp' in 'field list'
+mysql> select timestamp() $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select now$$
+ERROR 1054 (42S22): Unknown column 'now' in 'field list'
+mysql> select now()$$
++---------------------+
+| now()               |
++---------------------+
+| 2022-03-21 10:02:49 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select current_stamp() $$
+ERROR 1305 (42000): FUNCTION rigved_db.current_stamp does not exist
+mysql> select current_stamp $$
+ERROR 1054 (42S22): Unknown column 'current_stamp' in 'field list'
+mysql> select now()$$
++---------------------+
+| now()               |
++---------------------+
+| 2022-03-21 10:03:12 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> create table password_history(old_pass varchar(15), time timestamp)$$
+Query OK, 0 rows affected (1.63 sec)
+
+mysql> insert into('alex123', now())$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('alex123', now())' at line 1
+mysql> insert into password_history values('alex123', now())$$
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into password_history values('bruce123', now())$$
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from password_history$$
++----------+---------------------+
+| old_pass | time                |
++----------+---------------------+
+| alex123  | 2022-03-21 10:04:32 |
+| bruce123 | 2022-03-21 10:04:39 |
++----------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter ;
+mysql> create table user(id int primary key, name varchar(15), password varchar(15));
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> create table user_history(id int primary key, name varchar(15), old_password varchar(15), modified_time timestamp);
+Query OK, 0 rows affected (0.72 sec)
+
+mysql> insert into user values(1, 'Alex', 'alex123');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into user values(2, 'Bruce', 'bruce123');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delimiter $$
+mysql> create trigger user_update
+    -> before update on user for each row
+    -> begin
+    -> insert into user_history values(old.id, old.name, old.password, now());
+    -> end;
+    -> $$
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> select * from user$$
++----+-------+----------+
+| id | name  | password |
++----+-------+----------+
+|  1 | Alex  | alex123  |
+|  2 | Bruce | bruce123 |
++----+-------+----------+
+2 rows in set (0.13 sec)
+
+mysql> select * from user_history$$
+Empty set (0.06 sec)
+
+mysql> update user set password='888' where id = 1$$
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from user_history$$
++----+------+--------------+---------------------+
+| id | name | old_password | modified_time       |
++----+------+--------------+---------------------+
+|  1 | Alex | alex123      | 2022-03-21 10:09:26 |
++----+------+--------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql>
