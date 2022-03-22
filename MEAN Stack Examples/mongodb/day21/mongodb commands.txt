@@ -1,0 +1,154 @@
+
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+mydb    0.000GB
+> use mydb;
+switched to db mydb
+> show collections;
+emp
+user
+> db.user.find();
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 75, "name" : "David", "age" : 28 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find();
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 75, "name" : "David", "age" : 28 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$or:[{age:$gt:35}, {name:"Charles"}]});
+2022-03-22T12:51:44.080+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:27
+> db.user.find({$or:[{age:35}, {"name":"Charles"}]});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$or:[$gt:{age:35}, {"name":"Charles"}]});
+2022-03-22T12:52:30.453+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:22
+> db.user.find({$or:[$gt:{"age":35}, {"name":"Charles"}]});
+2022-03-22T12:53:06.063+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:22
+> db.user.find({$or:[{$gt:{"age":35}}, {"name":"Charles"}]});
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $gt",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.user.find({$or:[{age:35}, {"name":"Charles"}]});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$gt:{age:35}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $gt",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.user.find({$gt:{"age":35}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $gt",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.user.find({$gt:{"age":35}});
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $gt",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.user.find({age:{$gt:38}});
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+> db.user.find({age:{$gt:30}});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+> db.user.find({$or:[{age::{$gt:38}}, {"name":"Charles"}]});
+2022-03-22T12:55:42.202+0530 E  QUERY    [js] uncaught exception: SyntaxError: expected expression, got ':' :
+@(shell):1:24
+> db.user.find({$or:[{age:{$gt:38}}, {"name":"Charles"}]});
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$or:[{age:35}, {"name":"Charles"}]});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$or:[{age:{$gt:38}}, {"name":"Charles"}]});
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> clear();
+2022-03-22T12:57:23.402+0530 E  QUERY    [js] uncaught exception: ReferenceError: clear is not defined :
+@(shell):1:1
+> db.user.find();
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 75, "name" : "David", "age" : 28 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({$and:[{name:"Alex"}, {age:"35"}]});
+> db.user.find({$and:[{name:"Alex"}, {age:35}]});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+> db.user.find({$and:[{name:"Alex"}, {age:36}]});
+> db.user.find({$or:[{name:"Alex"}, {age:36}]});
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+> db.user.find();
+{ "_id" : 10, "name" : "Alex", "age" : 35 }
+{ "_id" : 20, "name" : "Bruce", "age" : 35 }
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+{ "_id" : 65, "name" : "Ajay", "age" : 48 }
+{ "_id" : 75, "name" : "David", "age" : 28 }
+{ "_id" : 34, "name" : "Charles", "age" : 18 }
+> db.user.find({age:{$in:[36,37,38]}})
+{ "_id" : 30, "name" : "Sachin", "age" : 36 }
+{ "_id" : 40, "name" : "Vijay", "age" : 36 }
+{ "_id" : 50, "name" : "Rahul", "age" : 36 }
+{ "_id" : 60, "name" : "Rahul", "age" : 38 }
+{ "_id" : 70, "name" : "Mohan", "age" : 38 }
+{ "_id" : 80, "name" : "Balu", "age" : 38 }
+>
+
