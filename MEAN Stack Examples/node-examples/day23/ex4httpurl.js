@@ -2,6 +2,7 @@ let http = require("http");
 let url = require("url"); // this converts url query parameter to javascript object
 let PORT_NO = 3001;
 
+
 http
 .createServer((request, response) => {
     let urlString = request.url;
