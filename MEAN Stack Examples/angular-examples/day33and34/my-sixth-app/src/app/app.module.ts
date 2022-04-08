@@ -8,6 +8,7 @@ import { ChildComponent } from './child/child.component';
 import { TdfDemoComponent } from './tdf-demo/tdf-demo.component';
 import { FormsModule } from '@angular/forms';
 import { TdfValidationDemoComponent } from './tdf-validation-demo/tdf-validation-demo.component';
+import { TdfValidation2Component } from './tdf-validation2/tdf-validation2.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TdfValidationDemoComponent } from './tdf-validation-demo/tdf-validation
     ParentComponent,
     ChildComponent,
     TdfDemoComponent,
-    TdfValidationDemoComponent
+    TdfValidationDemoComponent,
+    TdfValidation2Component
   ],
   imports: [
     BrowserModule,
