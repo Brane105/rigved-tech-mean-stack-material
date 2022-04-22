@@ -1,0 +1,33 @@
+<div class = "container-fluid">
+    <h3>Login Form</h3>
+    <div *ngIf = "errorMessage" class = "row">
+        <div class = "col-3">
+            <div class = "alert alert-danger">{{errorMessage}}</div>
+        </div>
+    </div>
+    <form [formGroup] = "loginForm" (ngSubmit) = "handleSubmit()">
+       <div class = "form-group">
+        <div class = "row">
+            <div class = "col-3">
+               <label>Profile Id</label>
+                <input formControlName = "_id" type = "number" class = "form-control">
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-3">
+               <label>Password</label>
+                <input formControlName = "password" type = "password" class = "form-control">
+            </div>
+        </div>
+        <br />
+        <div class = "row">
+            <div class = "col-2">
+                <input type = "submit" value = "Login" class = "btn btn-primary">
+            </div>
+            <div class = "col-2">
+                <input type = "reset" value = "Reset" class = "btn btn-primary">
+            </div>
+        </div>
+       </div>
+    </form>
+</div>

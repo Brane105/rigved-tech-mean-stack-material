@@ -1,0 +1,51 @@
+<div class = "container-fluid">
+    <h3>Profile Registration</h3>
+    <div *ngIf = "errorMessage" class = "row">
+        <div class = "col-3">
+            <div class = "alert alert-danger">{{errorMessage}}</div>
+        </div>
+    </div>
+    <form [formGroup] = "profileForm" (ngSubmit) = "handleSubmit()">
+       <div class = "form-group">
+        <div class = "row">
+            <div class = "col-3">
+               <label>Profile Id</label>
+                <input formControlName = "_id" type = "number" class = "form-control">
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-3">
+               <label>Name</label>
+                <input formControlName = "name" type = "text" class = "form-control">
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-3">
+               <label>Password</label>
+                <input formControlName = "password" type = "password" class = "form-control">
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-3">
+               <label>Phone</label>
+                <input formControlName = "phone" type = "tel" class = "form-control">
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-3">
+               <label>Birthday</label>
+                <input formControlName = "dob" type = "date" class = "form-control">
+            </div>
+        </div>
+        <br />
+        <div class = "row">
+            <div class = "col-2">
+                <input type = "submit" value = "Submit" class = "btn btn-primary">
+            </div>
+            <div class = "col-2">
+                <input type = "reset" value = "Reset" class = "btn btn-primary">
+            </div>
+        </div>
+       </div>
+    </form>
+</div>

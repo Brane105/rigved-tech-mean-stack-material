@@ -75,32 +75,34 @@ app.get("/profile/:id/:password", (request, response) => {
     });
 });
 
-// find a contact of a particular profile
-app.get("/profile/:id/contacts/:contactId", (request, response) => {
+// find a contact of a particular profile from contact name
+app.get("/profile/:id/contacts/:name", (request, response) => {
     let id = parseInt(request.params.id);
-    let contactId = parseInt(request.params.contactId);
-    console.log(contactId);
+    let name = request.params.name;
     mongoClient.connect(dbURL, {useNewUrlParser:true}, (error, client) => {
         if(error) {
             throw error;
         } else {
             let db = client.db("mydb");
+
             db.collection("profile").findOne({_id: id})
             .then(doc => {
                 if(doc != null) {
                     let contacts = doc.contacts;
                     console.log('doc contacts: '+doc.contacts);
                     let counter = 0;
+                    let contactsList = [];
                     for(let i = 0; i < contacts.length; i++) {
-                        if(contacts[i]._id == contactId) {
+                        if(contacts[i].name == name) {
                             counter++;
-                            response.json(contacts[i]);
-                            break;
+                            contactsList.push(contacts[i]);
                         }
                     }
                     if(counter == 0) {
                         contacts = [];
                         response.json(contacts);
+                    } else {
+                        response.json(contactsList);
                     }
                 } else {
                     response.json({'message': `Sorry wrong id: ${id}`})
@@ -114,7 +116,76 @@ app.get("/profile/:id/contacts/:contactId", (request, response) => {
 //Complete other services here
 // delete the particular contact based on profile id: /profile/:id/contacts/:contactId
 
-// show all contacts based on profile id: /profile/:id/contacts
+app.delete("/profile/:id/contacts/:contactId", (request, response) => {
+    let id = parseInt(request.params.id);
+    let contactId = parseInt(request.params.contactId);
+    mongoClient.connect(dbURL, {useNewUrlParser:true}, (error, client) => {
+        if(error) {
+            throw error;
+        } else {
+            let db = client.db("mydb");
+            db.collection("profile")
+            .updateOne({_id:id}, {$pull: {contacts: {_id: contactId}}})
+            .then(doc => {
+                if(doc != null) {
+                    response.status(200).json(doc);
+                } else {
+                    response.status(404).json({"message": `${contactId} is incorrect`});
+                }
+                client.close();   
+            });
+        }
+    });
+});
+
+// show all contacts based on profile id: /profile/c/c
+app.get("/profile/:profileId/c/c", (request, response) => { 
+    let id = parseInt(request.params.profileId);
+    mongoClient.connect(dbURL, {useNewUrlParser:true}, (error, client) => {
+        if(error) {
+            throw error;
+        } else {
+            let db = client.db("mydb");
+            db.collection("profile").findOne({_id: id})
+            .then((doc) => {
+                if(doc!=null) {
+                    let contacts = doc.contacts;
+                    if(contacts.length == 0) {
+                        response.json({"message":"Sorry no contacts"});
+                    } else {
+                        response.json(contacts)
+                    }
+                } else {
+                    response.status(404).json({"message":`Sorry wrong id ${id}`})
+                }
+                client.close();
+            });
+        }
+    });
+});
+
+// get the profile based on id
+
+// show all contacts based on profile id: /profile/:id
+app.get("/profile/:id", (request, response) => { 
+    let id = parseInt(request.params.id);
+    mongoClient.connect(dbURL, {useNewUrlParser:true}, (error, client) => {
+        if(error) {
+            throw error;
+        } else {
+            let db = client.db("mydb");
+            db.collection("profile").findOne({_id: id})
+            .then((doc) => {
+                if(doc!=null) {
+                    response.json(doc);
+                } else {
+                    response.status(404).json({"message":`Sorry wrong id ${id}`})
+                }
+                client.close();
+            });
+        }
+    });
+});
 
 // update the contact phone number of a partiular profile id: /profile/:id/contacts/:contactId/phone/:num
 

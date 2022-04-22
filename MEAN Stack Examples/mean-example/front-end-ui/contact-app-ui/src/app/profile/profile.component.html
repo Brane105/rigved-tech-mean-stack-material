@@ -1,0 +1,35 @@
+<div class = "container-fluid">
+    <div class = "row">
+        <div class = "col-4">
+            <div *ngIf = "profile">
+                <table>
+                    <tr>
+                        <th>Name: </th>
+                        <td>{{profile.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Birthday: </th>
+                        <td>{{profile.dob}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone: </th>
+                        <td>{{profile.phone}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+       
+        <div class = "col-8">
+            <div>
+                <a routerLink = "dashboard">Dashboard</a> / 
+                <a routerLink = "addContact">Add Contact</a> /
+                <a routerLink = "showContacts">Show Contacts</a> /
+                <a routerLink = "updateProfile">Update Profile</a> /
+                <a routerLink = "settings">Settings</a> /
+                <a routerLink = "/login">Logout</a>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>
