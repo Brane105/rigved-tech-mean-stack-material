@@ -1,0 +1,17 @@
+
+- Go through the document
+- Team leaders needs to divide the task equally and distribute to the members
+- Team leader must create an GIT organization & their members must be part of it including trainer
+- In Git everyone must work in feature branch
+- Everyone must merge their work only through GIT not through any other medium
+- Use .gitignore so that node_modules wouldn't be tracked in the GIT, but to get the node_modules
+	everyone can use 'npm install'
+- In the document you may see foreign key & primary key to be used but you can ignore that and design
+ the tables accordingly that meets your requirement as you will use MongoDB
+- You can add new features to the project if you think its requirement
+- Everyday Morning you need to list the tasks each person doing in the text document & upload in the
+git organization
+- Everyday Evenining you need to list the tasks completed in the text document
+- Everyone must be online in the meeting, team leader must ensure his members are there in the meeting
+- If you complete project early you can think of some extra features and add those features
+- On the last day you need to show the output of the project & the tasks done by each & every member
